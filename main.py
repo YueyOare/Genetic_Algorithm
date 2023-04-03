@@ -79,7 +79,7 @@ def display_window():
 
     frame1 = tk.LabelFrame(root, text="Параметры")
     frame2 = tk.LabelFrame(root, text="График функции")
-    frame3 = tk.LabelFrame(root, text="Хромосомы 0 поколения")
+    frame3 = tk.LabelFrame(root, text="Хромосомы 1 поколения")
     frame4 = tk.LabelFrame(root, text="Полученные решения")
 
     # frame1
@@ -149,14 +149,14 @@ def display_window():
         global OUTPUT, current_generation
         if current_generation > 0:
             current_generation -= 1
-            frame3.configure(text="Хромосомы " + str(current_generation) + " поколения")
+            frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
             update_treeview(tree, OUTPUT[current_generation].round(decimals=5))
 
     def next_generation():
         global OUTPUT, current_generation
-        if current_generation < int(entry7.get()):
+        if current_generation < int(entry7.get())-1:
             current_generation += 1
-            frame3.configure(text="Хромосомы " + str(current_generation) + " поколения")
+            frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
             update_treeview(tree, OUTPUT[current_generation].round(decimals=5))
 
     parent = frame3

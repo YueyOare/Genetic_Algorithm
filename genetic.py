@@ -88,7 +88,7 @@ def genetic_algorithm(pop_size=50, num_generations=10, elitism_k=2, crossover_ra
     population = generate_population(pop_size, low, high)
     evaluate_population(population)
     output = [create_table(population)]
-    for i in range(num_generations):
+    for i in range(num_generations-1):
         population = create_new_population(population, elitism_k, crossover_rate, mutation_rate, low, high)
         evaluate_population(population)
         output.append(create_table(population))
