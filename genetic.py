@@ -82,7 +82,7 @@ def create_table(population):
     return pd.DataFrame(gen)
 
 
-def genetic_algorithm(pop_size=50, num_generations=10, elitism_k=2, crossover_rate=0.8, mutation_rate=0.1, low=-50, high=50):
+def genetic_algorithm(pop_size=100, num_generations=10, elitism_k=2, crossover_rate=0.8, mutation_rate=0.1, low=-50, high=50):
     global counter
     counter = 0
     population = generate_population(pop_size, low, high)

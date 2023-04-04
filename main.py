@@ -50,7 +50,7 @@ def display_window():
                 return -1
 
     def count():
-        global X, Y, OUTPUT, current_generation, validation
+        global X, Y, OUTPUT, validation, current_generation
         validation = True
         mutation_rate = validate(entry1, float) / 100
         crossover_rate = validate(entry2, float) / 100
@@ -64,6 +64,7 @@ def display_window():
                                              crossover_rate=crossover_rate, mutation_rate=mutation_rate, low=low, high=high)
             print('Точка минимума:', X, '\nМинимум функции:', Y)
             current_generation = 0
+            frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
             label1.configure(text="x1 = " + str(X[0]))
             label2.configure(text="x2 = " + str(X[1]))
             label3.configure(text="f(x1, x2) = " + str(Y))
@@ -95,11 +96,11 @@ def display_window():
     entry7 = tk.Entry(master=frame1)
     entry1.insert(0, "10")
     entry2.insert(0, "80")
-    entry3.insert(0, "2")
-    entry4.insert(0, "50")
+    entry3.insert(0, "10")
+    entry4.insert(0, "100")
     entry5.insert(0, "-5")
     entry6.insert(0, "5")
-    entry7.insert(0, "10")
+    entry7.insert(0, "100")
     tk.Label(text="Функция", master=frame1).grid(row=0, column=0, padx=15, sticky=tk.NSEW)
     tk.Label(text="100(x2 - x1^2)^2 + (1 - x1)^2", master=frame1).grid(row=0, column=1, padx=15,
                                                                        sticky=tk.NSEW)
@@ -159,6 +160,18 @@ def display_window():
             frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
             update_treeview(tree, OUTPUT[current_generation].round(decimals=5))
 
+    def first_generation():
+        global OUTPUT, current_generation
+        current_generation = 0
+        frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
+        update_treeview(tree, OUTPUT[current_generation].round(decimals=5))
+
+    def last_generation():
+        global OUTPUT, current_generation
+        current_generation = int(entry7.get())-1
+        frame3.configure(text="Хромосомы " + str(current_generation+1) + " поколения")
+        update_treeview(tree, OUTPUT[current_generation].round(decimals=5))
+
     parent = frame3
     tree = ttk.Treeview(parent, show="headings")
     vsb = tk.Scrollbar(parent, orient="vertical", command=tree.yview)
@@ -167,7 +180,11 @@ def display_window():
     tree.pack(side=tk.TOP, fill=tk.BOTH, expand=tk.TRUE)
     button2 = tk.Button(master=parent, text="Следующее поколение", command=next_generation)
     button3 = tk.Button(master=parent, text="Предыдущее поколение", command=prev_generation)
+    button4 = tk.Button(master=parent, text="Первое поколение", command=first_generation)
+    button5 = tk.Button(master=parent, text="Последнее поколение", command=last_generation)
+    button4.pack(side=tk.LEFT, fill="x", expand=tk.TRUE)
     button3.pack(side=tk.LEFT, fill="x", expand=tk.TRUE)
+    button5.pack(side=tk.RIGHT, fill="x", expand=tk.TRUE)
     button2.pack(side=tk.RIGHT, fill="x", expand=tk.TRUE)
 
     # frame4
